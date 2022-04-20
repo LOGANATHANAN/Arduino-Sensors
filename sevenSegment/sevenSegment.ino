@@ -1,68 +1,50 @@
-int a = 2;  //For displaying segment "a"
-int b = 3;  //For displaying segment "b"
-int c = 4;  //For displaying segment "c"
-int d = 5;  //For displaying segment "d"
-int e = 6;  //For displaying segment "e"
-int f = 8;  //For displaying segment "f"
-int g = 9;  //For displaying segment "g"
+int num_array[10][7] = {  { 1,1,1,1,1,1,0 },    // 0
+                          { 0,1,1,0,0,0,0 },    // 1
+                          { 1,1,0,1,1,0,1 },    // 2
+                          { 1,1,1,1,0,0,1 },    // 3
+                          { 0,1,1,0,0,1,1 },    // 4
+                          { 1,0,1,1,0,1,1 },    // 5
+                          { 1,0,1,1,1,1,1 },    // 6
+                          { 1,1,1,0,0,0,0 },    // 7
+                          { 1,1,1,1,1,1,1 },    // 8
+                          { 1,1,1,0,0,1,1 }};   // 9
+                                       
+//function header
+void Num_Write(int);
 
-void setup() {               
-  pinMode(a, OUTPUT);  //A
-  pinMode(b, OUTPUT);  //B
-  pinMode(c, OUTPUT);  //C
-  pinMode(d, OUTPUT);  //D
-  pinMode(e, OUTPUT);  //E
-  pinMode(f, OUTPUT);  //F
-  pinMode(g, OUTPUT);  //G
+void setup() 
+{ 
+  // set pin modes
+  pinMode(2, OUTPUT);   
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  
+ 
 }
 
-void displayDigit(int digit)
+void loop() 
 {
- //Conditions for displaying segment a
- if(digit!=1 && digit != 4)
- digitalWrite(a,HIGH);
- 
- //Conditions for displaying segment b
- if(digit != 5 && digit != 6)
- digitalWrite(b,HIGH);
- 
- //Conditions for displaying segment c
- if(digit !=2)
- digitalWrite(c,HIGH);
- 
- //Conditions for displaying segment d
- if(digit != 1 && digit !=4 && digit !=7)
- digitalWrite(d,HIGH);
- 
- //Conditions for displaying segment e 
- if(digit == 2 || digit ==6 || digit == 8 || digit==0)
- digitalWrite(e,HIGH);
- 
- //Conditions for displaying segment f
- if(digit != 1 && digit !=2 && digit!=3 && digit !=7)
- digitalWrite(f,HIGH);
- if (digit!=0 && digit!=1 && digit !=7)
- digitalWrite(g,HIGH);
- 
-}
-void turnOff()
-{
-  digitalWrite(a,LOW);
-  digitalWrite(b,LOW);
-  digitalWrite(c,LOW);
-  digitalWrite(d,LOW);
-  digitalWrite(e,LOW);
-  digitalWrite(f,LOW);
-  digitalWrite(g,LOW);
-}
-
-
-void loop() {
-
-  for(int i=0;i<10;i++)
- {
-   displayDigit(i);
+  
+  //counter loop
+  
+  for (int counter = 10; counter > 0; --counter) 
+  {
    delay(1000);
-   turnOff();
- }
+   Num_Write(counter-1); 
+  }
+  delay(3000);
+}
+
+// this functions writes values to the sev seg pins  
+void Num_Write(int number) 
+{
+  int pin= 2;
+  for (int j=0; j < 7; j++) {
+   digitalWrite(pin, num_array[number][j]);
+   pin++;
+  }
 }
